@@ -1,1 +1,67 @@
-{}
+{
+	"users": [
+		{
+			"id": 1,
+			"created_at": "2024-06-29",
+			"login": "admin",
+			"password": "admin_12345678",
+			"first_name": "Eugene",
+			"last_name": "Gromadsky",
+			"age": 30,
+			"role_id": 1
+		},
+		{
+			"id": 2,
+			"created_at": "2024-06-29",
+			"login": "user",
+			"password": "user_12345678",
+			"first_name": "Eugene",
+			"last_name": "Gromadsky",
+			"age": 30,
+			"role_id": 2
+		}
+	],
+	"roles": [
+		{
+			"id": 1,
+			"name": "admin",
+			"alias": {
+				"en": "Administrator",
+				"ru": "Администратор"
+			}
+		},
+		{
+			"id": 2,
+			"name": "moder",
+			"alias": {
+				"en": "Moderator",
+				"ru": "Модератор"
+			}
+		},
+		{
+			"id": 3,
+			"name": "user",
+			"alias": {
+				"en": "User",
+				"ru": "Пользователь"
+			}
+		}
+	],
+	"posts": [
+		{
+			"id": 1,
+			"created_at": "2024-06-29",
+			"title": "Title",
+			"image_url": null,
+			"text": "text"
+		},
+		{
+			"id": 2,
+			"created_at": "2024-06-29",
+			"title": "Title 2",
+			"image_url": null,
+			"text": "text 2"
+		}
+	],
+	"comments": []
+}
