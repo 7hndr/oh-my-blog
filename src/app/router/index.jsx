@@ -1,14 +1,15 @@
 import { Navigate } from 'react-router-dom'
 import { Root } from '../../shared/components'
 import {
-	AllPostsPage,
-	NotFoundPage,
 	AuthPage,
 	PostPage,
-	NewPostPage,
+	UserPage,
 	UsersPage,
-	DashboardPage,
-	ErrorPage
+	ErrorPage,
+	NewPostPage,
+	AllPostsPage,
+	NotFoundPage,
+	DashboardPage
 } from '../../pages'
 
 export const routeList = [
@@ -31,6 +32,7 @@ export const routeList = [
 			{ name: 'PostPage', path: '/post:post_id', element: <PostPage /> },
 			{ name: 'NewPostPage', path: '/post', element: <NewPostPage /> },
 			{ name: 'UsersPage', path: '/users', element: <UsersPage /> },
+			{ name: 'UserPage', path: '/user', element: <UserPage /> },
 			{
 				name: 'DashboardPage',
 				path: '/dashboard',

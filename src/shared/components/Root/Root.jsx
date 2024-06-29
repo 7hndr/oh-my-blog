@@ -5,31 +5,30 @@ import styled from 'styled-components'
 const Layout = styled.div`
 	display: grid;
 	background-color: #fff;
-	/* background-color: #222; */
 	height: 100vh;
-	grid-template-rows: 20rem 1fr 4rem;
+	grid-template-rows: 20rem 1fr 3rem;
 `
 const Content = styled.main`
 	display: grid;
 	padding: 2rem;
 `
-const Middle = styled.div`
+const Container = styled.div`
 	display: grid;
 	grid-template-columns: 1fr 30rem;
-	background-color: #e4e0e0;
+	background-color: #ffffff;
 `
 
 export const Root = () => {
 	return (
-		<Layout>
+		<Layout className='dark'>
 			<Header />
 
-			<Middle>
+			<Container>
 				<Content>
 					<Outlet />
 				</Content>
 				<Sidebar />
-			</Middle>
+			</Container>
 			<Footer />
 		</Layout>
 	)

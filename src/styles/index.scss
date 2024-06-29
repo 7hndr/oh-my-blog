@@ -1,23 +1,45 @@
 :root {
-	--font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-		sans-serif;
+	--font: -apple-system, BlinkMacSystemFont, 'Roboto', 'Oxygen', 'Ubuntu',
+		'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+.light {
 	--accent: rgb(34, 211, 238);
 	--accent-success: #1dc76c;
 	--accent-hover: rgb(6, 182, 212);
-	--border-radius: 0.25rem;
 	--surface: #1f2228;
 	--bg: #282c34;
 	--secondary-background: #31363f;
 	--field: #31353e;
 	--surface-active: rgb(41, 37, 52);
-	--white: #fff;
 	--primary-text: #fff;
 	--contrast-text: #29282b;
 	--secondary-text: gray;
 	--error-text: #d85b5b;
 }
 
+.dark {
+	--accent: rgb(34, 211, 238);
+	--accent-success: #1dc76c;
+	--accent-hover: rgb(6, 182, 212);
+	--surface: #1f2228;
+	--bg: #282c34;
+	--secondary-background: #31363f;
+	--field: #31353e;
+	--surface-active: rgb(41, 37, 52);
+	--primary-text: #fff;
+	--contrast-text: #29282b;
+	--secondary-text: gray;
+	--error-text: #d85b5b;
+}
+
+:root {
+	--border-radius: 0.25rem;
+	--white: #ffffff;
+	--black: #000000;
+	--font: -apple-system, BlinkMacSystemFont, 'Roboto', 'Oxygen', 'Ubuntu',
+		'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
 body {
 	font-family: var(--font);
 }

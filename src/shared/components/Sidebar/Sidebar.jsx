@@ -3,6 +3,8 @@ import styled from 'styled-components'
 const SidebarDiv = styled.div`
 	padding: 2rem;
 	position: relative;
+	display: grid;
+	place-content: center;
 `
 
 const LeftDivider = styled.div`
