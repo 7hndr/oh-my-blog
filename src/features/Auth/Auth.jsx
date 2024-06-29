@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import styles from './Auth.module.scss'
 
-import { Button } from '../../ui'
+import { Button } from '../../shared/ui'
 import { SentSuccess } from './components/SentSuccess'
 
 import { libsSchema } from './validation'

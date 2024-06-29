@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Auth } from '../../modules'
-import { Switch } from '../../ui'
+import { Auth } from '../../features'
+import { Switch } from '../../shared/ui'
 
 export const AuthPage = () => {
 	const [withoutLibs, setWithLibs] = useState(true)

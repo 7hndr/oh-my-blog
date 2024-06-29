@@ -1,5 +1,5 @@
 // import { FaUserCheck } from 'react-icons/fa'
-import { Button } from '../../../ui'
+import { Button } from '../../../shared/ui'
 
 // import styles from './SentSuccess.module.scss'
 

@@ -1,7 +1,7 @@
-import { Button } from '../../ui'
+import { Button } from '../../shared/ui'
 import { useNavigate } from 'react-router-dom'
 
-export const NotFound = () => {
+export const NotFoundPage = () => {
 	const navigate = useNavigate()
 
 	return (
