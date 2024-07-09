@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
-import { Logo } from '../../ui'
+import { Logo, Title } from '../../ui'
 import { Controls } from './components/Controls'
 
 const HeaderContainer = styled.div`
@@ -32,15 +32,6 @@ const InfoContainer = styled.div`
 	justify-content: center;
 `
 
-const Title = styled.h1`
-	text-align: center;
-	color: #353535;
-	font-weight: 300;
-	font-size: 2.5rem;
-	letter-spacing: 0.4rem;
-	text-transform: uppercase;
-`
-
 export const Header = () => (
 	<HeaderContainer>
 		<NavLink
@@ -49,39 +40,15 @@ export const Header = () => (
 		>
 			<InfoContainer>
 				<Logo />
-				<Title>Thndr`s blog</Title>
+				<Title
+					uppercase
+					letterSpacing='.5rem'
+				>
+					Thndr`s blog
+				</Title>
 			</InfoContainer>
 		</NavLink>
 		<Controls />
 		<Divider />
 	</HeaderContainer>
 )
-
-//
-// import { routeList } from '../../router/index.jsx'
-// const navLinks = routeList
-// 	.find(route => route.path === '/')
-// 	.children.filter(route => !!route.path?.startsWith('/'))
-{
-	/* <div className=''>
-				<nav className=''>
-					{navLinks
-						.filter(({ path }) => path !== '*')
-						.map(({ name, path }) => {
-							const _path = path.replace('/*', '')
-
-							return (
-								<NavLink
-									key={path}
-									to={_path}
-									className={({ isActive }) =>
-										isActive ? `` : ''
-									}
-								>
-									<span className=''>{name}</span>
-								</NavLink>
-							)
-						})}
-				</nav>
-			</div> */
-}

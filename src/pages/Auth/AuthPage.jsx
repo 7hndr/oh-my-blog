@@ -1,18 +1,8 @@
-import { useState } from 'react'
-import { Auth } from '../../features'
-import { Switch } from '../../shared/ui'
+import { Auth as AuthComponent } from '../../features'
+import styled from 'styled-components'
+
+const AuthWrapper = styled(AuthComponent)``
 
 export const AuthPage = () => {
-	const [withoutLibs, setWithLibs] = useState(true)
-
-	return (
-		<div className=''>
-			<Switch
-				label='Without Yup & react-hook-form'
-				checked={withoutLibs}
-				onChange={setWithLibs}
-			/>
-			<Auth />
-		</div>
-	)
+	return <AuthWrapper />
 }

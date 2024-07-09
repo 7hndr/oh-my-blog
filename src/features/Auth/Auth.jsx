@@ -1,45 +1,88 @@
 import { useState, useEffect, useRef } from 'react'
-import styles from './Auth.module.scss'
-
-import { Button } from '../../shared/ui'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import styled from 'styled-components'
+import { Button, Icon, Input, Text } from '../../shared/ui'
 import { SentSuccess } from './components/SentSuccess'
 
-import { libsSchema } from './validation'
-import { formModel } from './config'
+import { validationSchemaByPurpouse } from './validation'
+import {
+	formModelByPurpouse,
+	initialStateByPurpouse,
+	REGISTRATION,
+	AUTHORIZATION
+} from './config'
+import { loginUser, registerUser } from './store/authSlice'
 
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+
+//  ← — — — — — — — — — — — — {{ 🗲 }} — — — — — — — — — — — — → //
+
+const AuthWrapper = styled.div`
+	display: grid;
+	width: 100%;
+	align-content: start;
+	grid-gap: 0.5rem;
+	border-radius: var(--border-radius);
+	justify-content: center;
+`
+
+const Form = styled.form`
+	width: 20rem;
+	display: grid;
+	grid-gap: 1rem;
+`
+
+const ButtonsBlock = styled.div`
+	display: grid;
+	grid-template-columns: 1fr auto;
+	grid-gap: 0.5rem;
+`
 
 //  ← — — — — — — — — — — — — {{ 🗲 }} — — — — — — — — — — — — → //
 
 export const Auth = () => {
 	const [isSent, setIsSent] = useState(false)
-	const [isFormLoading, setFormLoading] = useState(false)
+
+	const [mode, setMode] = useState(AUTHORIZATION)
 	const submitRef = useRef()
 	const prevSubmitDisabledState = useRef(false)
+	const dispatch = useDispatch()
+	const { loading, error } = useSelector(state => state.auth)
+
+	const navigate = useNavigate()
 
 	const {
 		reset,
-		register,
+		control,
 		handleSubmit,
+		setFocus,
 		formState: { errors }
 	} = useForm({
-		resolver: yupResolver(libsSchema)
+		defaultValues: {
+			...initialStateByPurpouse(mode)
+		},
+		resolver: yupResolver(validationSchemaByPurpouse(mode))
 	})
 
 	const isSubmitDisabled = !!Object.values(errors)
 		.map(e => e?.message)
 		.filter(Boolean)?.length
 
-	const onSubmit = form => {
-		console.log({ form })
+	const onSubmit = async form => {
+		switch (mode) {
+			case REGISTRATION:
+				dispatch(registerUser({ ...form }))
+				break
+			case AUTHORIZATION:
+				dispatch(loginUser({ ...form }))
+				break
 
-		setFormLoading(true)
-
-		setTimeout(() => {
-			setFormLoading(false)
-			setIsSent(true)
-		}, 1024)
+			default:
+				break
+		}
+		navigate('/')
 	}
 
 	const handleTryAgain = () => {
@@ -51,7 +94,12 @@ export const Auth = () => {
 		reset()
 	}
 
+	const toggleMode = () => {
+		setMode(mode === AUTHORIZATION ? REGISTRATION : AUTHORIZATION)
+	}
+
 	useEffect(() => {
+		setMode(AUTHORIZATION)
 		!isSent &&
 			!!prevSubmitDisabledState.current &&
 			!isSubmitDisabled &&
@@ -60,51 +108,44 @@ export const Auth = () => {
 		prevSubmitDisabledState.current = isSubmitDisabled
 	}, [isSubmitDisabled, isSent])
 
-	//  ← — — — — — — — — — — — — {{ 🗲 }} — — — — — — — — — — — — → //
-
 	return (
-		<div className={styles.authWrapper}>
+		<AuthWrapper>
 			{isSent ? (
-				<SentSuccess handleTryAgain={handleTryAgain} />
+				error ? (
+					<>
+						<SentSuccess handleTryAgain={handleTryAgain} />
+						<Text>{error}</Text>
+					</>
+				) : (
+					<Text>Success! You`ll be redirected to the main page</Text>
+				)
 			) : (
 				<>
-					{/* <FaRegUser
-						size='3rem'
-						className={styles.icon}
-					/> */}
-					<form
-						onSubmit={handleSubmit(onSubmit)}
-						className={styles.form}
-					>
-						{formModel.map(input => (
-							<div
-								className={styles.inputWrapper}
+					<Form onSubmit={handleSubmit(onSubmit)}>
+						{formModelByPurpouse(mode).map(input => (
+							<Controller
 								key={input.id}
-							>
-								<label
-									htmlFor={input.id}
-									className={styles.label}
-								>
-									{input.label}
-								</label>
-								<input
-									type={input.type}
-									{...register(input.id)}
-									className={styles.input}
-								/>
-								{errors[input.id]?.message && (
-									<span className={styles.errorBlock}>
-										{errors[input.id]?.message}
-									</span>
+								name={input.name}
+								control={control}
+								render={({ field }) => (
+									<Input
+										label={input.label}
+										placeholder={input.label}
+										error={errors[input.id]?.message}
+										type={input.type}
+										name={input.name}
+										setFocus={setFocus}
+										{...field}
+									/>
 								)}
-							</div>
+							/>
 						))}
-						<div className={styles.buttonsBlock}>
+						<ButtonsBlock>
 							<Button
 								_ref={submitRef}
 								disabled={isSubmitDisabled}
 								type='submit'
-								loading={isFormLoading}
+								loading={loading}
 							>
 								Enter
 							</Button>
@@ -113,12 +154,21 @@ export const Auth = () => {
 								type='button'
 								title='Reset'
 							>
-								{/* <FaRedo /> */}
+								<Icon name='arrow-rotate-left' />
 							</Button>
-						</div>
-					</form>
+						</ButtonsBlock>
+					</Form>
+
+					<Button
+						simple
+						onClick={toggleMode}
+					>
+						{mode === REGISTRATION
+							? 'Already have an account?'
+							: "Don't have an account?"}
+					</Button>
 				</>
 			)}
-		</div>
+		</AuthWrapper>
 	)
 }

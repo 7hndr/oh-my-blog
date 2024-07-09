@@ -1,31 +1,50 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-// import { login } from './authActions'
+import { server } from '../../../app/bff'
+// import { deleteCookie } from '../../../shared/helpers'
 
-const fakeAuthApi = (username, password) =>
-	new Promise((resolve, reject) => {
-		setTimeout(() => {
-			if (username === 'user' && password === 'password') {
-				resolve({ username })
-			} else {
-				reject(new Error('Invalid credentials'))
-			}
-		}, 1000)
-	})
-
-export const login = createAsyncThunk(
-	'auth/login',
-	async ({ username, password }, { rejectWithValue }) => {
+export const loginUser = createAsyncThunk(
+	'auth/loginUser',
+	async ({ login, password }, { rejectWithValue }) => {
 		try {
-			const user = await fakeAuthApi(username, password) // замените на ваш API вызов
-			return user
+			const response = await server.authorize({ login, password })
+			if (response.error) {
+				return rejectWithValue(response.error)
+			}
+			return response.res
 		} catch (error) {
-			return rejectWithValue(error.message)
+			return rejectWithValue('Authorization error')
+		}
+	}
+)
+
+// Асинхронное действие для регистрации пользователя
+export const registerUser = createAsyncThunk(
+	'auth/registerUser',
+	async (
+		{ login, password, age, firstName, lastName },
+		{ rejectWithValue }
+	) => {
+		try {
+			const response = await server.register({
+				login,
+				password,
+				age,
+				firstName,
+				lastName
+			})
+			if (response.error) {
+				return rejectWithValue(response.error)
+			}
+			return response.res
+		} catch (error) {
+			return rejectWithValue('Registration error')
 		}
 	}
 )
 
 const initialState = {
 	user: null,
+	token: null,
 	loading: false,
 	error: null
 }
@@ -36,25 +55,52 @@ const authSlice = createSlice({
 	reducers: {
 		logout: state => {
 			state.user = null
+			state.token = null
+		},
+		toggleLoading: (state, action) => {
+			state.loading = action.payload ?? !state.loading
+		},
+		clearError: state => {
+			state.error = null
+		},
+		setToken: (state, { payload }) => {
+			state.token = payload
 		}
 	},
 	extraReducers: builder => {
 		builder
-			.addCase(login.pending, state => {
+			.addCase(loginUser.pending, state => {
 				state.loading = true
 				state.error = null
 			})
-			.addCase(login.fulfilled, (state, action) => {
+			.addCase(loginUser.fulfilled, (state, action) => {
+				const payload = action?.payload
 				state.loading = false
-				state.user = action.payload
+				state.user = payload?.session
+				state.token = payload?.token
 			})
-			.addCase(login.rejected, (state, action) => {
+			.addCase(loginUser.rejected, (state, action) => {
+				const payload = action.payload
 				state.loading = false
-				state.error = action.payload
+				state.error = payload || 'Authorization error'
+			})
+			.addCase(registerUser.pending, state => {
+				state.loading = true
+				state.error = null
+			})
+			.addCase(registerUser.fulfilled, (state, action) => {
+				const payload = action.payload
+				state.loading = false
+				state.user = payload?.session
+			})
+			.addCase(registerUser.rejected, (state, action) => {
+				const payload = action.payload
+				state.loading = false
+				state.error = payload || 'Registration error'
 			})
 	}
 })
 
-export const { logout } = authSlice.actions
+export const { setUser, setToken, clearError, logout } = authSlice.actions
 
 export default authSlice.reducer

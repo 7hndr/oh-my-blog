@@ -1,55 +1,61 @@
-import { getUsers, getUserByLogin, createUser } from './api'
-import { createSession } from './session'
+import { setCookie } from '../../shared/helpers'
+import { getUserByLogin, createUser } from './api'
 
 export const server = {
-	async authorize({ login, password }) {
-		const user = await getUserByLogin(login)
+	authorize({ login, password }) {
+		return new Promise(resolve => {
+			getUserByLogin(login).then(user => {
+				if (!user) {
+					resolve({
+						error: 'user_not_found',
+						res: null
+					})
+				} else if (user.password !== password) {
+					resolve({
+						error: 'password_invalid',
+						res: null
+					})
+				} else {
+					const token = (+new Date()).toString(16)
 
-		if (!user) {
-			return {
-				error: 'user_not_found',
-				res: null
-			}
-		} else if (user.password !== password) {
-			return {
-				error: 'password_invalid',
-				res: null
-			}
-		} else {
-			const session = createSession(user.role_id)
+					setCookie('token', token, 1)
 
-			return {
-				error: null,
-				res: { session, token: '1' }
-			}
-		}
+					resolve({
+						error: null,
+						res: { user, token }
+					})
+				}
+			})
+		})
 	},
 	async register({ login, password, age, firstName, lastName }) {
-		const users = await getUsers()
+		return new Promise(resolve => {
+			getUserByLogin(login).then(user => {
+				if (user) {
+					resolve({
+						error: 'login_in_use',
+						res: null
+					})
+				} else {
+					createUser({
+						login,
+						password,
+						age,
+						firstName,
+						lastName,
+						role_id: 2
+					}).then(user => {
+						const token = (+new Date()).toString(16)
 
-		const user = users?.find(u => u.login === login)
+						setCookie('token', token, 1)
 
-		if (user) {
-			return {
-				error: 'login_in_use',
-				res: null
-			}
-		} else {
-			await createUser({
-				login,
-				password,
-				age,
-				firstName,
-				lastName,
-				role_id: 2
+						resolve({
+							error: null,
+							res: { user, token }
+						})
+					})
+				}
 			})
-
-			const session = createSession(user.role_id)
-
-			return {
-				error: null,
-				res: { session }
-			}
-		}
+		})
 	}
 }

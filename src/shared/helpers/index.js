@@ -1,3 +1,5 @@
+export * from './cookies'
+
 export const debounce = (cb, d) => {
 	let t
 
@@ -49,4 +51,14 @@ export const getCurrentIsoDateTime = date => {
 	let formattedDate = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`
 
 	return formattedDate
+}
+
+export const formatDate = date => {
+	if (!date) return '—'
+
+	return date.toLocaleDateString('en-GB', {
+		month: 'short',
+		day: 'numeric',
+		weekday: 'long'
+	})
 }

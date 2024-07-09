@@ -1,6 +1,11 @@
 import { NavLink as BaseNavLink } from 'react-router-dom'
 import styled from 'styled-components'
+
 import { Icon } from '../../../ui'
+import { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { setToken } from '../../../../features/Auth/store/authSlice'
+import { deleteCookie } from '../../../helpers'
 
 const NavLink = styled(BaseNavLink)`
 	cursor: pointer;
@@ -47,36 +52,58 @@ const Divider = styled.div`
 	opacity: 0.1;
 `
 
-const controlButtons = [
-	{
-		name: 'user',
-		title: 'User page',
-		to: '/user'
-	},
-	{
-		name: 'sign-in-alt',
-		title: 'Auth page',
-		to: '/auth'
-	},
-	{
-		name: 'solar-panel',
-		title: 'Dashboard',
-		to: '/dashboard'
-	},
-	{
-		name: 'sign-out-alt',
-		title: 'Logout',
-		to: '/'
-	}
-]
-
 export const Controls = () => {
+	const dispatch = useDispatch()
+
+	const controlButtons = [
+		{
+			name: 'user',
+			title: 'User page',
+			to: '/user',
+			onlyForAuthorized: true
+		},
+		{
+			name: 'sign-in-alt',
+			title: 'Auth page',
+			to: '/auth',
+			onlyForAuthorized: false
+		},
+		{
+			name: 'solar-panel',
+			title: 'Dashboard',
+			to: '/dashboard',
+			onlyForAuthorized: true
+		},
+		{
+			name: 'sign-out-alt',
+			title: 'Logout',
+			to: '/',
+			onClick: () => {
+				deleteCookie('token')
+				dispatch(setToken(null))
+			},
+			onlyForAuthorized: true
+		}
+	]
+
+	const { token } = useSelector(state => state.auth)
+	const [buttons, setButtons] = useState([...controlButtons])
+
+	useEffect(() => {
+		setButtons(
+			[...controlButtons].filter(b =>
+				token ? b.onlyForAuthorized : !b.onlyForAuthorized
+			)
+		)
+	}, [token])
+
 	return (
 		<ControlsContainer>
-			{controlButtons.map(({ title, name, to }) => (
+			{buttons.map(({ title, name, to, onClick }) => (
 				<NavLink
 					key={name}
 					to={to}
+					onClick={onClick}
 				>
 					<Icon
 						name={name}
