@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { GET } from '../../../app/api'
+import { GET } from '../../../app/api/methods'
 
 const VITE_OPEN_WEATHER_API_KEY = import.meta.env.VITE_OPEN_WEATHER_API_KEY
 const OPEN_WEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather'
@@ -13,12 +13,21 @@ const FooterDiv = styled.div`
 	grid-auto-flow: column;
 	align-content: center;
 	padding: 0 3rem;
+
+	@media only screen and (max-width: 500px) {
+		padding: 0 1rem;
+	}
 `
 
 const Copyright = styled.span`
 	text-align: left;
 	font-size: 0.8rem;
 	opacity: 0.5;
+`
+
+const A = styled.a`
+	text-decoration: underline;
+	color: var(--primary-text);
 `
 
 const Divider = styled.div`
@@ -79,7 +88,18 @@ export const Footer = () => {
 
 	return (
 		<FooterDiv>
-			<Copyright>{`All rights reserved | t.me/thndr | ${new Date().getFullYear()}`}</Copyright>
+			<Copyright>
+				<span>All rights reserved</span>
+				<span> | </span>
+				<A
+					href='https://t.me/thndr'
+					target='_blank'
+				>
+					thndr
+				</A>
+				<span> | </span>
+				{new Date().getFullYear()}
+			</Copyright>
 			{city && <Weather>{`${city}: ${temperature}, ${weather}`}</Weather>}
 			<Divider />
 		</FooterDiv>

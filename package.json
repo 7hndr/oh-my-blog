@@ -4,8 +4,8 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
+		"server": "json-server --watch db.json --port 3004",
 		"build": "vite build",
-		"run-json-server": "json-server --watch db.json --port 3004",
 		"lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
 		"preview": "vite preview",
 		"predeploy": "npm run build"
@@ -25,8 +25,9 @@
 	"devDependencies": {
 		"@types/react": "^18.2.66",
 		"@types/react-dom": "^18.2.22",
-		"@vitejs/plugin-react": "^4.2.1",
+		"@vitejs/plugin-react": "^4.3.1",
 		"autoprefixer": "^10.4.19",
+		"babel-plugin-styled-components": "^2.1.4",
 		"eslint": "^8.57.0",
 		"eslint-plugin-react": "^7.34.1",
 		"eslint-plugin-react-hooks": "^4.6.0",

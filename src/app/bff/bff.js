@@ -1,5 +1,5 @@
 import { setCookie } from '../../shared/helpers'
-import { getUserByLogin, createUser } from './api'
+import { getUserByLogin, createUser } from '../api'
 
 export const server = {
 	authorize({ login, password }) {

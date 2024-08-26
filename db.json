@@ -1,67 +1,149 @@
 {
-	"users": [
-		{
-			"id": 1,
-			"created_at": "2024-06-29",
-			"login": "admin",
-			"password": "admin1",
-			"first_name": "Eugene",
-			"last_name": "Gromadsky",
-			"age": 30,
-			"role_id": 1
-		},
-		{
-			"id": 2,
-			"created_at": "2024-06-29",
-			"login": "user",
-			"password": "user_12345678",
-			"first_name": "Eugene",
-			"last_name": "Gromadsky",
-			"age": 30,
-			"role_id": 2
-		}
-	],
-	"roles": [
-		{
-			"id": 1,
-			"name": "admin",
-			"alias": {
-				"en": "Administrator",
-				"ru": "Администратор"
-			}
-		},
-		{
-			"id": 2,
-			"name": "moder",
-			"alias": {
-				"en": "Moderator",
-				"ru": "Модератор"
-			}
-		},
-		{
-			"id": 3,
-			"name": "user",
-			"alias": {
-				"en": "User",
-				"ru": "Пользователь"
-			}
-		}
-	],
-	"posts": [
-		{
-			"id": 1,
-			"created_at": "2024-06-29",
-			"title": "Title",
-			"image_url": null,
-			"text": "text"
-		},
-		{
-			"id": 2,
-			"created_at": "2024-06-29",
-			"title": "Title 2",
-			"image_url": null,
-			"text": "text 2"
-		}
-	],
-	"comments": []
+  "users": [
+    {
+      "id": "1",
+      "created_at": "2024-06-29",
+      "login": "admin",
+      "password": "admin",
+      "first_name": "Eugene",
+      "last_name": "Gromadsky",
+      "age": 30,
+      "role_id": 1
+    },
+    {
+      "id": "2",
+      "created_at": "2024-06-29",
+      "login": "user",
+      "password": "user_12345678",
+      "first_name": "Eugene2",
+      "last_name": "Gromadsky2",
+      "age": 30,
+      "role_id": 2
+    }
+  ],
+  "roles": [
+    {
+      "id": "1",
+      "name": "admin",
+      "alias": {
+        "en": "Administrator",
+        "ru": "Администратор"
+      }
+    },
+    {
+      "id": "2",
+      "name": "moder",
+      "alias": {
+        "en": "Moderator",
+        "ru": "Модератор"
+      }
+    },
+    {
+      "id": "3",
+      "name": "user",
+      "alias": {
+        "en": "User",
+        "ru": "Пользователь"
+      }
+    }
+  ],
+  "posts": [
+    {
+      "id": "1",
+      "created_at": "2024-06-29",
+      "title": "React vs. Angular: A Comparison",
+      "image_url": "https://randomfox.ca/images/1.jpg",
+      "image_id": 1105766,
+      "text": "React and Angular are two of the most popular frontend frameworks. React is a library for building UI components, while Angular is a full-fledged framework. Each has its pros and cons depending on the project requirements."
+    },
+    {
+      "id": "2",
+      "created_at": "2024-06-29",
+      "title": "Introduction to CSS Grid",
+      "image_url": "https://randomfox.ca/images/2.jpg",
+      "image_id": 17501573,
+      "text": "CSS Grid Layout is a two-dimensional layout system for the web. It allows developers to create complex layouts on the web more easily. It has become an essential tool for modern web design."
+    },
+    {
+      "id": "3",
+      "created_at": "2024-06-29",
+      "title": "State Management in React",
+      "image_url": "https://randomfox.ca/images/3.jpg",
+      "image_id": 15020838,
+      "text": "State management is a critical aspect of React applications. Tools like Redux, MobX, and the Context API provide solutions for managing state effectively, ensuring a seamless user experience."
+    },
+    {
+      "id": "4",
+      "created_at": "2024-06-29",
+      "title": "Building Responsive Websites",
+      "image_url": "https://randomfox.ca/images/4.jpg",
+      "image_id": 26545590,
+      "text": "Responsive web design ensures that web applications look great on all devices, from desktops to smartphones. Techniques include fluid grids, flexible images, and media queries."
+    },
+    {
+      "id": "5",
+      "created_at": "2024-06-29",
+      "title": "JavaScript ES6 Features",
+      "image_url": "https://randomfox.ca/images/5.jpg",
+      "image_id": 27418779,
+      "text": "ES6 introduced many new features to JavaScript, including arrow functions, template literals, classes, and modules. These features have made JavaScript more powerful and easier to work with."
+    },
+    {
+      "id": "6",
+      "created_at": "2024-06-29",
+      "title": "Webpack: A Beginner's Guide",
+      "image_url": "https://randomfox.ca/images/6.jpg",
+      "image_id": 970517,
+      "text": "Webpack is a powerful module bundler for JavaScript applications. It simplifies the process of managing dependencies and assets, making it easier to build and maintain complex applications."
+    },
+    {
+      "id": "7",
+      "created_at": "2024-06-29",
+      "title": "The Power of Flexbox",
+      "image_url": "https://randomfox.ca/images/7.jpg",
+      "image_id": 428429,
+      "text": "Flexbox is a layout model that allows elements to align and distribute space within a container. It is particularly useful for creating responsive layouts without the need for floats or positioning."
+    },
+    {
+      "id": "8",
+      "created_at": "2024-06-29",
+      "title": "Progressive Web Apps (PWAs)",
+      "image_url": "https://randomfox.ca/images/8.jpg",
+      "image_id": 1010079,
+      "text": "PWAs are web applications that provide a native app-like experience. They offer offline capabilities, push notifications, and fast loading times, making them a powerful choice for modern web development."
+    },
+    {
+      "id": "9",
+      "created_at": "2024-06-29",
+      "title": "Understanding TypeScript",
+      "image_url": "https://randomfox.ca/images/9.jpg",
+      "image_id": 276092,
+      "text": "TypeScript is a typed superset of JavaScript that compiles to plain JavaScript. It provides optional static typing, classes, and interfaces, which can help developers write more robust and maintainable code."
+    },
+    {
+      "id": "10",
+      "created_at": "2024-06-29",
+      "title": "Effective Use of Web APIs",
+      "image_url": "https://randomfox.ca/images/10.jpg",
+      "image_id": 3779814,
+      "text": "Web APIs provide a way to interact with various web services and features. Understanding how to use APIs effectively can enhance the functionality of your web applications and improve user experience."
+    },
+    {
+      "id": "11",
+      "created_at": "2024-06-29",
+      "title": "Modern CSS Techniques",
+      "image_url": "https://randomfox.ca/images/11.jpg",
+      "image_id": 3048527,
+      "text": "Modern CSS techniques such as CSS Variables, Grid, and Flexbox enable developers to create complex and responsive layouts. They help in building visually appealing and highly functional web interfaces."
+    },
+    {
+      "id": "12",
+      "created_at": "2024-06-29",
+      "title": "Improving Web Performance",
+      "image_url": "https://randomfox.ca/images/12.jpg",
+      "image_id": 3325720,
+      "text": "Web performance is crucial for user satisfaction. Techniques such as lazy loading, image optimization, and efficient use of JavaScript can significantly enhance the speed and responsiveness of your web applications."
+    }
+  ],
+  "comments": []
 }

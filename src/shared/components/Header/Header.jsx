@@ -11,6 +11,11 @@ const HeaderContainer = styled.div`
 	justify-content: space-between;
 	padding: 2rem;
 	position: relative;
+
+	@media only screen and (max-width: 600px) {
+		justify-content: center;
+		grid-auto-flow: row;
+	}
 `
 
 const Divider = styled.div`
@@ -30,6 +35,11 @@ const InfoContainer = styled.div`
 	grid-auto-flow: column;
 	grid-gap: 2rem;
 	justify-content: center;
+
+	@media only screen and (max-width: 400px) {
+		grid-auto-flow: row;
+		justify-items: center;
+	}
 `
 
 export const Header = () => (
@@ -41,8 +51,9 @@ export const Header = () => (
 			<InfoContainer>
 				<Logo />
 				<Title
-					uppercase
-					letterSpacing='.5rem'
+					letterSpacing='0.05rem'
+					size='h3'
+					weight={700}
 				>
 					Thndr`s blog
 				</Title>

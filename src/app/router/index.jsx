@@ -29,7 +29,7 @@ export const routeList = [
 			},
 			{ name: 'ErrorPage', path: '/error', element: <ErrorPage /> },
 			{ name: 'AllPostsPage', path: '/home', element: <AllPostsPage /> },
-			{ name: 'PostPage', path: '/post:post_id', element: <PostPage /> },
+			{ name: 'PostPage', path: '/post/:id', element: <PostPage /> },
 			{ name: 'NewPostPage', path: '/post', element: <NewPostPage /> },
 			{ name: 'UsersPage', path: '/users', element: <UsersPage /> },
 			{ name: 'UserPage', path: '/user', element: <UserPage /> },

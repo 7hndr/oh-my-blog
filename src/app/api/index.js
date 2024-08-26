@@ -1,66 +1,63 @@
-export const GET = url => {
-	return new Promise((resolve, reject) => {
-		fetch(url, { method: 'GET' })
-			.then(res => {
-				if (res.status === 404) {
-					reject(new Error('404'))
-				} else {
-					resolve(res.json())
+import { getCurrentIsoDateTime } from '../../shared/helpers'
+const BASE_URL = 'http://localhost:3004'
+const INT_FIELDS = ['age', 'role_id', 'id']
+
+export const getUsers = () =>
+	fetch(`${BASE_URL}/users`, {})
+		.then(r => r.json())
+		.then(users =>
+			users.map(u => {
+				const user = {}
+				for (const key in u) {
+					user[key] = INT_FIELDS.includes(key)
+						? Number(u[key])
+						: u[key]
 				}
+				return user
 			})
-			.catch(err => reject(err))
-	})
-}
+		)
 
-export const DELETE = url => {
-	return new Promise((resolve, reject) => {
-		fetch(url, { method: 'DELETE' })
-			.then(res => resolve(res.json()))
-			.catch(err => reject(err))
-	})
-}
+export const getPosts = ({ limit, page }) =>
+	fetch(`${BASE_URL}/posts?_per_page=${limit}&_page=${page}`, {}).then(
+		posts => posts.json()
+	)
 
-export const POST = (url, body) => {
-	return new Promise((resolve, reject) => {
-		fetch(url, {
-			method: 'POST',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(body)
+export const getPost = ({ id }) =>
+	fetch(`${BASE_URL}/posts/${id}`, {}).then(r => r.json())
+
+export const getUser = (id = 1) =>
+	fetch(`${BASE_URL}/users/${id}`, {}).then(r => r.json())
+
+export const updateUser = async user => {
+	console.log(user)
+	return fetch(`${BASE_URL}/users/${user.id}`, {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			...user,
+			age: Number(user.age),
+			role_id: Number(user.role_id),
+			id: Number(user.id)
 		})
-			.then(res => resolve(res.json()))
-			.catch(err => reject(err))
-	})
+	}).then(user => user.json())
 }
 
-export const PUT = (url, body) => {
-	return new Promise((resolve, reject) => {
-		fetch(url, {
-			method: 'PUT',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(body)
-		})
-			.then(res => resolve(res.json()))
-			.catch(err => reject(err))
-	})
+export const getUserByLogin = async login => {
+	return fetch(`${BASE_URL}/users`, {})
+		.then(res => res.json())
+		.then(users => users?.find(u => u.login === login))
 }
 
-export const PATCH = (url, body) => {
-	return new Promise((resolve, reject) => {
-		fetch(url, {
-			method: 'PATCH',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(body)
-		})
-			.then(res => resolve(res.json()))
-			.catch(err => reject(err))
+export const createUser = userData =>
+	fetch(`${BASE_URL}/users`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: {
+			...userData,
+			created_at: getCurrentIsoDateTime(new Date())
+		}
 	})
-}

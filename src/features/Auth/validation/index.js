@@ -19,7 +19,7 @@ export const schema = {
 		isEmail: { message: 'Enter valid E-Mail' }
 	},
 	password: {
-		minLength: { arg: 6, message: 'Minimum number of characters 6' },
+		minLength: { arg: 5, message: 'Minimum number of characters 5' },
 		maxLength: { arg: 24, message: 'Maximum number of characters 24' },
 		required: { message: 'Password required' }
 	},

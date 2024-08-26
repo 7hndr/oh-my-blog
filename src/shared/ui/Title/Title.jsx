@@ -12,8 +12,10 @@ const TitleComponent = styled.h1`
 				return 'var(--primary-text)'
 		}
 	}};
+	font-family: var(--secondary-font);
 	text-transform: ${({ $uppercase }) => ($uppercase ? 'uppercase' : 'none')};
 	letter-spacing: ${({ letterSpacing }) => letterSpacing};
+	text-align: ${({ $center }) => ($center ? 'center' : 'left')};
 	font-size: ${({ size }) => {
 		switch (size) {
 			case 'h1':
@@ -39,6 +41,7 @@ export const Title = ({
 	children,
 	size = 'h1',
 	type = 'primary',
+	center = false,
 	uppercase = false,
 	letterSpacing = 0,
 	weight = 300
@@ -48,6 +51,7 @@ export const Title = ({
 			size={size}
 			type={type}
 			$weight={weight}
+			$center={center}
 			$uppercase={uppercase}
 			letterSpacing={letterSpacing}
 		>
@@ -62,5 +66,6 @@ Title.propTypes = {
 	type: PropTypes.oneOf(['primary', 'secondary', 'contrast']),
 	weight: PropTypes.number,
 	letterSpacing: PropTypes.string,
-	uppercase: PropTypes.bool
+	uppercase: PropTypes.bool,
+	center: PropTypes.bool
 }

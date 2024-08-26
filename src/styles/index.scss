@@ -1,19 +1,20 @@
 :root {
 	--font: -apple-system, BlinkMacSystemFont, 'Roboto', 'Oxygen', 'Ubuntu',
 		'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+	--secondary-font: 'Merriweather', serif;
 }
 
 .light {
-	--accent: rgb(147, 122, 206);
-	--accent-hover: rgb(124, 100, 180);
+	--accent: rgb(40, 40, 40);
+	--accent-hover: rgb(20, 20, 20);
 	--accent-success: #1dc76c;
 	--surface: #f0ecf2;
 	--bg: #f8f6fa;
 	--secondary-background: #31363f;
 	--field: #dadee6;
 	--surface-active: rgb(41, 37, 52);
-	--primary-text: #131313;
-	--contrast-text: #29282b;
+	--primary-text: #2d2d2d;
+	--contrast-text: #d7d7d7;
 	--secondary-text: gray;
 	--error-text: #d85b5b;
 }
@@ -40,6 +41,7 @@
 	--font: -apple-system, BlinkMacSystemFont, 'Roboto', 'Oxygen', 'Ubuntu',
 		'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 }
+
 body {
 	font-family: var(--font);
 }
@@ -48,6 +50,10 @@ body {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+}
+
+div:focus {
+	outline: none;
 }
 
 ::-webkit-scrollbar-button {
